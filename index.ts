@@ -1,1 +1,1 @@
-export { PlaceholderImage } from './src/PlaceholderImage.js';
+export { PlaceholderImage } from './src/placeholder-image.js';
