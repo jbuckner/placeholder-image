@@ -1,9 +1,16 @@
-import { html, css, LitElement, property, TemplateResult } from 'lit-element';
+import { html, css, LitElement, property, TemplateResult, PropertyValues } from 'lit-element';
 
 import { PlaceholderSource } from './placeholder-source';
+import { PlaceholderProviderInterface } from './placeholder-providers/placeholder-provider-interface';
+import { ProviderFillMurray } from './placeholder-providers/provider-fill-murray';
+import { ProviderPlaceKitten } from './placeholder-providers/provider-place-kitten';
+import { ProviderPlaceCage } from './placeholder-providers/provider-place-cage';
+import { ProviderPlaceBear } from './placeholder-providers/provider-place-bear';
 
 export class PlaceholderImage extends LitElement {
   @property({ type: String }) source: PlaceholderSource = PlaceholderSource.FillMurray;
+
+  @property({ type: Object }) placeholderProvider: PlaceholderProviderInterface = new ProviderFillMurray();
 
   @property({ type: Number }) width = 200;
 
@@ -16,15 +23,29 @@ export class PlaceholderImage extends LitElement {
   }
 
   private get imageSource(): string {
+    return this.placeholderProvider.generateUrl(this.width, this.height);
+  }
+
+  updated(changedProperties: PropertyValues): void {
+    if (changedProperties.has('source')) {
+      this.updateProvider();
+    }
+  }
+
+  private updateProvider(): void {
     switch (this.source) {
       case PlaceholderSource.FillMurray:
-        return `https://www.fillmurray.com/${this.width}/${this.height}`;
+        this.placeholderProvider = new ProviderFillMurray();
+        break;
       case PlaceholderSource.PlaceKitten:
-        return `https://placekitten.com/${this.width}/${this.height}`;
+        this.placeholderProvider = new ProviderPlaceKitten();
+        break;
       case PlaceholderSource.PlaceCage:
-        return `https://www.placecage.com/${this.width}/${this.height}`;
+        this.placeholderProvider = new ProviderPlaceCage();
+        break;
       case PlaceholderSource.PlaceBear:
-        return `https://placebear.com/${this.width}/${this.height}`;
+        this.placeholderProvider = new ProviderPlaceBear();
+        break;
     }
   }
 
