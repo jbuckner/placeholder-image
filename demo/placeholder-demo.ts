@@ -93,5 +93,10 @@ export class PlaceholderDemo extends LitElement {
     input {
       width: 50px;
     }
+
+    placeholder-image {
+      border: 1px dashed black;
+      display: inline-block;
+    }
   `;
 }
