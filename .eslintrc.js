@@ -10,11 +10,13 @@ module.exports = {
     'plugin:import/warnings',
   ],
   rules: {
-    // disable the rule for all files
-    '@typescript-eslint/explicit-function-return-type': 'off',
-    '@typescript-eslint/no-non-null-assertion': 'off',
-    'import/named': 'off',
-    'import/no-unresolved': 'off',
-    'import/extensions': ['error', 'always', { ignorePackages: true }],
   },
+  settings: {
+    'import/resolver': {
+      node: {
+          extensions: ['.js', '.jsx', '.ts', '.tsx'],
+          moduleDirectory: ['node_modules', 'src/'],
+      },
+    }
+  }
 };

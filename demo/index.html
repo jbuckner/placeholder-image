@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en-GB">
+<html>
 <head>
   <meta charset="utf-8">
   <style>
@@ -13,14 +13,11 @@
 
   <script type="module">
     import { html, render } from 'lit-html';
-    import '../dist/placeholder-image.js';
+    import '../dist/demo/placeholder-demo.js';
 
-    const title = 'Hello owc World!';
     render(
       html`
-        <placeholder-image .title=${title}>
-          some more light-dom
-        </placeholder-image>
+        <placeholder-demo></placeholder-demo>
       `,
       document.querySelector('#demo')
     );
